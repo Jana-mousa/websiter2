@@ -1,22 +1,47 @@
-const express =require('express');
-const router = express.Router();
-const { User , userValidate } = require ('../data')
 const mongoose = require('mongoose');
+const Joi = new require('joi')
 
+mongoose.connect('mongodb://localhost/users')
+.then(()=>{
+    console.log("Connected")
+})
+.catch((e)=>{
+    console.log("Failed" + e)
+}) //Promis
 
-router.post('/' , async(req,res) =>{
+// mongoose.model vs mongoose schems
+const User = mongoose.model('User', new mongoose.Schema({
+    fullName:{
+        type: String, 
+        required: true, 
+        minlength: 3,
+        maxlength: 100,
+    },
+    email:{
+        type: String, 
+        required: true, 
+        unique: true,     
+    },
+    password:{
+        type: String, 
+        required: true, 
+        minlength: 8,
+        maxlength: 1000,//password has a huge maxLength to be able to hash it to prevent hacking
+    }, 
+    gender:{
+        type: String, 
+    }
+}))
 
-    const { error } = userValidate(req.body)
-      if(error){
-          return res.status(404).send( error.details[0].message);
-         }
-       const user = new User({
-           fullname:req.body.fullname,
-           email:req.body.email,
-           password:req.body.password
-       });
-      await user.save();
-       res.send(user);
-  });
+function userValidate(user){
+    const schema = {
+        fullName: Joi.string().min(3).max(100).required(),
+        email: Joi.string().required().email(),
+        password: Joi.string().required(),
+        gender: Joi.string()
+    }
+    return  new Joi.ValidationError(user, schema);
+}
 
-  module.exports=router;
+exports.User = User; 
+exports.userValidate = userValidate;
