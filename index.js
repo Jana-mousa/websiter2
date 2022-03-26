@@ -35,17 +35,6 @@ app.get('/api/users',(req,res)=>{
     res.send("hello");
 });
 
-/*app.post('/api/users/register',(req,res)=>{
-    
-   /* const users={
-        fullname:req.body.fullname,
-        email:req.body.email,
-        password:req.body.password
-
-    }
-    userss.push(users);
-    res.send(userss);
-});*/
 
 
 const port = process.env.port || 3000;
