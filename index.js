@@ -18,34 +18,35 @@ mongoose.connect('mongodb://localhost:27017/authSystem')
 
 //mongoose.set('useCreateIndex',true);
 
-const userss=[
-{ fullname: "jana mousa", email : "janamousa@gmail.com" , password : "12345678" , grnder : "f"},
-{fullname: "lamees mousa", email : "lameesmousa@gmail.com" , password : "129875678", grnder : "f"},
-{fullname: "aseel mousa", email : "aseelmousa@gmail.com" , password : "345345678", grnder : "f"}
-
-];
-
-
 app.use(express.json());
 app.use('/api/users',users);
-
+app.use('/api/users',authe);
+app.set('view engine', 'ejs')
 
 app.get('/',(req,res)=>{
-res.send("webbbbbb");
+    res.render("register");
+});
+    
+app.get('/login',(req,res)=>{
+    res.render("login");
 });
 
 app.get('/api/users',(req,res)=>{
-    res.send(userss);
+    res.send("hello");
 });
-app.post('/api/users',(req,res)=>{
-    const users={
+
+/*app.post('/api/users/register',(req,res)=>{
+    
+   /* const users={
         fullname:req.body.fullname,
         email:req.body.email,
         password:req.body.password
 
     }
     userss.push(users);
-    res.send(users);
-});
+    res.send(userss);
+});*/
+
+
 const port = process.env.port || 3000;
 app.listen(port,()=> console.log('App working on port '+port+'...'));
