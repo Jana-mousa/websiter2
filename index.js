@@ -2,17 +2,20 @@ const express = require('express');
 const app = express();
 //const db = require('./db')
 const mongoose = require('mongoose');
-const Joi=require('joi');
-const users = require("./routes/users")
-//const bcrypt = require('bcrypt');
-//const _= require('lodesh');
-const httpServer=express();
-mongoose.connect('mongodb://localhost:27017/' ,{
-userNewUrlparser:true,
-useUnifiedTopology:true
+const Joi = require('joi');
+const users = require("./users")
+const bcrypt = require('bcrypt');
+const _ = require('lodash');
+const ejs = require('ejs')
+const authe = require('./autho')
+mongoose.connect('mongodb://localhost:27017/authSystem')
+.then(()=>{
+    console.log("Connected")
 })
-.then(()=> console.log("connected to DataBase..."))
-.catch((error) => console.error('Error: '+error));
+.catch((e)=>{
+    console.log("Failed" + e)
+}) //Promis
+
 //mongoose.set('useCreateIndex',true);
 
 const userss=[
