@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
-const Joi = new require('joi')
+const Joi = require('joi')
 
-mongoose.connect('mongodb://localhost/users')
+mongoose.connect('mongodb://localhost:27017/authSystem')
 .then(()=>{
     console.log("Connected")
 })
@@ -10,7 +10,7 @@ mongoose.connect('mongodb://localhost/users')
 }) //Promis
 
 // mongoose.model vs mongoose schems
-const User = mongoose.model('User', new mongoose.Schema({
+const testUser = mongoose.model('testUser', new mongoose.Schema({
     fullName:{
         type: String, 
         required: true, 
@@ -27,21 +27,20 @@ const User = mongoose.model('User', new mongoose.Schema({
         required: true, 
         minlength: 8,
         maxlength: 1000,//password has a huge maxLength to be able to hash it to prevent hacking
-    }, 
-    gender:{
-        type: String, 
     }
 }))
 
 function userValidate(user){
-    const schema = {
+    const myschema = Joi.object(
+     {
         fullName: Joi.string().min(3).max(100).required(),
         email: Joi.string().required().email(),
-        password: Joi.string().required(),
-        gender: Joi.string()
+        password: Joi.string().required().min(8)
     }
-    return  new Joi.ValidationError(user, schema);
+    )
+    return myschema.validate(user)
+    //ValidationError(user, schema);
 }
-
-exports.User = User; 
+let models = mongoose.modelNames()
+exports.testUser = testUser; 
 exports.userValidate = userValidate;

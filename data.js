@@ -27,9 +27,6 @@ const User = mongoose.model('User', new mongoose.Schema({
         required: true, 
         minlength: 8,
         maxlength: 1000,//password has a huge maxLength to be able to hash it to prevent hacking
-    }, 
-    gender:{
-        type: String, 
     }
 }))
 
@@ -37,8 +34,7 @@ function userValidate(user){
     const schema = {
         fullName: Joi.string().min(3).max(100).required(),
         email: Joi.string().required().email(),
-        password: Joi.String().required(),
-        gender: Joi.String().min(8).max(1000)
+        password: Joi.String().required()
     }
     return Joi.ValidationError(user, schema)
 }
