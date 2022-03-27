@@ -1,15 +1,15 @@
  const mongoose=require('mongoose')
  const express =require ('express');
-const router = express.Router();
+const app = express();
 const {testUser}=require('./user');
  const _ =require('lodash'); 
  const bcrypt =require ('bcrypt');
  const Joi=require ('Joi');
  const parser = require('body-parser')
 //const { FindOperators } = require('mongoose/node_modules/mongodb');
-router.use(parser.urlencoded({ extended: true }))
+//router.use(parser.urlencoded({ extended: true }))
 
-router.post ('/login' ,async(req,res, next)=>{
+app.post ('/login' ,async(req,res, next)=>{
     /*const {error}=validate(req.body)
       if(error){
           return res.status(404).send(error.details[0].message);
@@ -18,11 +18,14 @@ router.post ('/login' ,async(req,res, next)=>{
       if (!user){
         return res.status(404).send('invalid email or password');
       }
-      const checkpass= await bcrypt.compare(req.body.password,user.password);
+      let checkpass;
+     if(req.body.password===user.password){
+      checkpass = true;
+     }
       if (!checkpass){
         return res.status(404).send('invalid email or password');
       }
-        res.send('ok')
+        res.send('Welcome to your page')
 });
 /*
 function validate(req){
@@ -34,4 +37,4 @@ function validate(req){
 
 }
 */
-module.exports = router
+module.exports = app
