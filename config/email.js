@@ -2,7 +2,7 @@ const nodemailer = require('nodemailer')
 const {v4: uuidv4} = require("uuid")
 const bcrypt = require("bcrypt")
 const UserVerification = require('../models/UserVerification')
-require("dotenv").config()
+//require("dotenv").config()
 
 function sendVerEmail({_id, email}){
     //url to be used in the email 
@@ -13,6 +13,7 @@ function sendVerEmail({_id, email}){
     let transporter = nodemailer.createTransport({
         service: 'gmail',
         auth:{
+
         }
     })
     transporter.verify((error, success) =>{
