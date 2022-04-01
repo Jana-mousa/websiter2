@@ -27,19 +27,22 @@ const User = mongoose.model('User', new mongoose.Schema({
         required: true, 
         minlength: 8,
         maxlength: 1000,//password has a huge maxLength to be able to hash it to prevent hacking
-    }, 
-    gender:{
-        type: String, 
+    },
+    verified:{
+        type: Boolean,//password has a huge maxLength to be able to hash it to prevent hacking
     }
 }))
 
+
+
 function userValidate(user){
-    const schema = {
+    const schema = Joi.object({
         fullName: Joi.string().min(3).max(100).required(),
         email: Joi.string().required().email(),
-        password: Joi.String().required(),
-        gender: Joi.String().min(8).max(1000)
-    }
-    return Joi.ValidationError(user, schema)
+        password: Joi.string().min(8).required()
+    }) 
+    //const {error, value} =
+    return schema.validate({fullName : user.fullName,email: user.email, password: user.password});
 }
-exports.User = User;
+
+module.exports = {User, userValidate};
