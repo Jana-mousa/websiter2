@@ -1,29 +1,16 @@
 const express = require('express')
 const bodyParser = require('body-parser')
-const session =  require("express-session")
 const bcrypt = require('bcrypt')
 const db = require("../models/user")
 const UserV = require("../models/UserVerification")
 const mongoose = require("mongoose")
-const cookiesParser = require("cookie-parser")
-require("dotenv").config()
+//require("dotenv").config()
 const emailSender = require("../config/email")
 
 const router = express.Router()
 router.use(bodyParser.json()) // for parsing application/json
 router.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
-router.use(cookiesParser());
-//const pages = require('../routes/pages')
-//router.use('/', require('../routes/pages'))
-
-router.use(session({
-    secret: 'keyboard cat',
-    resave: false,
-    saveUninitialized: true,
-    cookie: { secure: true }
-}))
-
-
+ 
 router.post("/register", (req, res, next)=>{
     const { name, email, password, passwordConfirm} = req.body;//destructuring
     const user = new db.User({
