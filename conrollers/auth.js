@@ -124,7 +124,6 @@ router.get("/user/verify/:userId/:uniqueString", (req, res)=>{
 
 })
 
-
 router.post("/login", (req, res)=>{
      let {email, password} = req.body;
     db.User.find({email: email})
@@ -146,5 +145,4 @@ router.post("/login", (req, res)=>{
     })
 })
 })
-
 module.exports = router
