@@ -22,11 +22,10 @@ router.post("/resetPassword", async(req, res) => {
 			token : crypto.randomBytes(32).toString('hex'),
 			}).save()
 		}
-		const link = `localhost / password - reset / ${ user._id } / ${ token.token }`
-			await sendEmail(user.email, "password reset", link);
-
+		const link = `http://localhost:3200/password-reset/ ${ user._id } / ${ token.token }`
+		await sendEmail(user.email, "password reset", link);
 		res.send("password reset link sent to your email account.")
-}catch (error) {
+	}catch (error) {
 	res.send("An error occured");
 	console.log(error)
 }
@@ -43,17 +42,17 @@ router.post("/resetPassword", async(req, res) => {
 				const token = await Token.findOne({
 				userid: user._id,
 				token : req.params.token
-					});
+			});
 				if (!token) return res.status(400).send("invalid link or expired.");
 
 				user.password = req.body.password
-					await user.save();
+				await user.save();
 				await token.delete();
 
 				res.send("password reset successfully")
 			}catch (error) {
-					res.send('An error occured')
-						console.log(error);
+				res.send('An error occured')
+				console.log(error);
 			}
 		})
 	module.exports = router;

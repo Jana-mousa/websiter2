@@ -1,5 +1,3 @@
-lines (25 sloc)  733 Bytes
-   
 const nodemailer = require("nodemailer");
 
 const sendEmail = async (email, subject, text) => {
