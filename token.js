@@ -1,11 +1,18 @@
-const monogoose = require('mongoose');
-	const Schema = mongoose.Schema;
+const mongoose = require('mongoose');
 
-	const tokenSchema = new Schema({
+mongoose.connect('mongodb://localhost/users')
+.then(()=>{
+    console.log("Connected")
+})
+.catch((e)=>{
+    console.log("Failed" + e)
+}) //Promis
+const Schema = mongoose.Schema;
+
+const tokenSchema = new Schema({
 	  userld: {
-		type: Schema.Types.Objectld,
+		type: String,
 		required : true,
-		ref:"user"
 	},
 	  token : {
 		type: String,
@@ -14,9 +21,9 @@ const monogoose = require('mongoose');
 
 	  createdAt : {
 		type: Date,
-		default: Date.now,
-		expires : 3600
-	   }
-		});
+		default: Date.now(),
+		expires : 360000000
+	}
+});
 
-	module.expires = mongoose.model("token", tokenSchema)
+module.expires = mongoose.model("token", tokenSchema)

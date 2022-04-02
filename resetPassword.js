@@ -22,13 +22,11 @@ router.post("/resetPassword", async(req, res) => {
 			token : crypto.randomBytes(32).toString('hex'),
 			}).save()
 		}
-		const link = `${ process.env.BASE_URL
-	} / password - reset / ${ user._id } / ${ token.token }`
+		const link = `localhost / password - reset / ${ user._id } / ${ token.token }`
 			await sendEmail(user.email, "password reset", link);
 
 		res.send("password reset link sent to your email account.")
-}
-catch (error) {
+}catch (error) {
 	res.send("An error occured");
 	console.log(error)
 }
