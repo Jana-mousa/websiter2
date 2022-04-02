@@ -6,7 +6,7 @@ const crypto = require('crypto');
 const express = require('express');
 const router = express.Router();
 
-router.post("/", async(req, res) => {
+router.post("/resetPassword", async(req, res) => {
 	try {
 		const schema = Joi.object({ email:Joi.string().email().required() });
 		const {error} = schema.validate(req.body);
@@ -20,7 +20,7 @@ router.post("/", async(req, res) => {
 			token = await new Token({
 			userld: user._id,
 			token : crypto.randomBytes(32).toString('hex'),
-				}).save()
+			}).save()
 		}
 		const link = `${ process.env.BASE_URL
 	} / password - reset / ${ user._id } / ${ token.token }`

@@ -27,26 +27,25 @@ const mongoose = require('mongoose');
 			})
 			return schema.validate(user)
 	}
-	module.exports = { User, validate }
-    const {User, validate} = require("../models/user")
-    const express = require('express');
+const {User, validate} = require("../models/user")
+const express = require('express');
 const router = express.Router();
 
-router.post("/", asyne(req, res))=> {
+router.post("/", async(req, res)=> {
     try {
         const {error} = validate(req.body);
-        if (error) return res.status(400).send(error.detaiis[O].message
-    };
+        if (error) return res.status(400).send(error.detaiis[O].message)
+    }catch(error){
+		res.send("An error occured");
+		console.log(error);
+	}
 
     const user = await new User(req.body).save();
 
     res.send(user)
-}
-catch (error) {
-    res.send("An error occured");
-    console.log(error);
-}
-);
-        module.exporrts = router;
+})
+
+module.exports = { User, validate, router }
+
 
 
