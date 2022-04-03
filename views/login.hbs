@@ -9,9 +9,8 @@
     <title>Log in</title>
 </head>
 <body>
-    <h1>Home Page</h1>
+    <h1>Log in</h1>
     <nav>
-        <h4>Node MYSQL</h4>
         <ul>
             <li><a href = "/">Home</a></li>
             <li><a href = "/login">Log In</a></li>
@@ -41,11 +40,8 @@
         </div>
     </div>
     <div>
-        <a href = "/auth/google">Sign up using google account</a>
+        <a href = "/auth/google">Sign in using google account</a>
    </div>
-    <div>
-            <a href = "/newPassword">Forget Password ?</a>
-    </div>
             {{#if failMessage}}
         <h4 class = "alert alert-danger">{{ failMessage }}</h4>
         {{/if}}
