@@ -9,7 +9,7 @@ const emailSender = require("../config/email")
 const router = express.Router()
 router.use(bodyParser.json()) // for parsing application/json
 router.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
-router.use(cookiesParser());
+//router.use(cookiesParser());
 
 
 router.post("/register", (req, res, next)=>{
@@ -143,6 +143,5 @@ router.post("/login", (req, res)=>{
         console.log("Error while retrieving the user" + e)
         res.render("login", {failMessage:"Please try to lo log in again"})
     })
-})
 })
 module.exports = router
