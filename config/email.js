@@ -59,6 +59,4 @@ function sendVerEmail({_id, email}){
         console.log("Error while hashing uuid ")
     })
 }
-
-
 module.exports = {sendVerEmail}

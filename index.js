@@ -40,6 +40,7 @@ app.get('/protected', isLoggedIn,(req, res) => {//this is a route which we donno
     res.redirect(`welcome/${req.user.displayName}`)//when putting a text in `` we put it in a template which means that `` is for templating 
 });
 
+
 app.get('/logout', (req, res)=>{
     req.logOut();
     req.session.destroy(); //This is gonna destroy the current session
