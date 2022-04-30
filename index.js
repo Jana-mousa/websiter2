@@ -17,7 +17,38 @@ app.use(passport.session());
 app.use('/', pages)
 app.use('/auth', require('./conrollers/auth'))
 app.use(express.static('public'))
-app.set('view engine', 'hbs')
+app.set('view engine', 'hbs') 
+
+
+
+
+app.listen(3200, console.log("localhost:3200"))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 function isLoggedIn(req, res, next){//This is a middleware function                       
     req.user ? next() : res.sendStatus(401);
@@ -48,4 +79,3 @@ app.get('/logout', (req, res)=>{
 })
 
 
-app.listen(3200, console.log("localhost:3200"))

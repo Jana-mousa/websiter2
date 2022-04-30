@@ -13,6 +13,8 @@ function sendVerEmail({_id, email}){
     let transporter = nodemailer.createTransport({
         service: 'gmail',
         auth:{
+            user: "haseebarama@gmail.com",
+            pass: "dana-12354",
         }
     })
     transporter.verify((error, success) =>{
