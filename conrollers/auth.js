@@ -5,7 +5,6 @@ const db = require("../models/user")
 const UserV = require("../models/UserVerification")
 const mongoose = require("mongoose")
 const emailSender = require("../config/email")
-
 const router = express.Router()
 router.use(bodyParser.json()) // for parsing application/json
 router.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
@@ -58,8 +57,6 @@ router.post("/register", (req, res, next)=>{
         })//render
     })//then       
 })//post 
-
-
 
 router.get("/user/verify/:userId/:uniqueString", (req, res)=>{
     let {userId, uniqueString} = req.params;
@@ -123,7 +120,6 @@ router.get("/user/verify/:userId/:uniqueString", (req, res)=>{
     })
 
 })
-
 router.post("/login", (req, res)=>{
      let {email, password} = req.body;
     db.User.find({email: email})
