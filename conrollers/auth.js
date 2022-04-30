@@ -126,18 +126,22 @@ router.get("/user/verify/:userId/:uniqueString", (req, res)=>{
 
 router.post("/login", (req, res)=>{
      let {email, password} = req.body;
+    console.log(email)  
     db.User.find({email: email})
     .then(async result => { 
-        console.log(result[0].email)  
-        if(result[0].verified){
-            if(await bcrypt.compare(password, result[0].password)){
-                res.redirect(`/welcome/${result[0].fullName}`)
-            }else{
-                res.render("login", {failMessage:"Please make sure from your email or password"})   
-            }//if for password comparison
-        }else{//if for user verification     
-            res.render("login", {failMessage:"Please check your email inbox to verify your account so you can log in successfully"})   
-        } 
+        if(result.length > 0)  {
+            if(result[0].verified){
+                if(await bcrypt.compare(password, result[0].password)){
+                    res.redirect(`/welcome/${result[0].fullName}`)
+                }else{
+                    res.render("login", {failMessage:"Please make sure from your email or password"})   
+                }//if for password comparison
+            }else{//if for user verification     
+                res.render("login", {failMessage:"Please check your email inbox to verify your account so you can log in successfully"})   
+            } 
+        }else{
+            res.render("login", {failMessage:"Please make sure from your email or password"})  
+        }
     })
     .catch((e) => {
         console.log("Error while retrieving the user" + e)
